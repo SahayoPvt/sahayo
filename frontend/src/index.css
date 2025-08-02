@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+
+@layer components{
+    .nav-link{
+        @apply text-gray-700 hover:text-black font-medium capitalize pt-2.5
+    }
+    .footer-link{
+        @apply text-gray-700 transition hover:opacity-75
+    }
+    .footer-heading{
+        @apply font-medium text-gray-900
+    }
+}
