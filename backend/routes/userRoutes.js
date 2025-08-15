@@ -77,6 +77,3 @@ router.route("/admin/user/:id")
     .delete(verifyUserAuth, roleBasedAccess('admin'), deleteUser);
 
 export default router;
-
-
-

@@ -166,7 +166,7 @@ export const requestPasswordReset = handleAsyncError(async (req, res, next) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
   if (!user) {
-    return next(new HandleError("User doesn't exist", 400));
+    return next(new HandleError("No account found with this email address.", 400));
   }
   let resetToken;
   try {
@@ -190,7 +190,8 @@ export const requestPasswordReset = handleAsyncError(async (req, res, next) => {
     });
     res.status(200).json({
       success: true,
-      message: `Email is sent to ${user.email} successfully`,
+      message: `Password reset link has been sent to your email!
+`,
     });
   } catch (error) {
     user.resetPasswordToken = undefined;

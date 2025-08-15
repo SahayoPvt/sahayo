@@ -9,7 +9,13 @@ import errorHandleMiddleware  from './middleware/error.js';
 import fileUpload from 'express-fileupload';
 import dotenv from 'dotenv'
 import  cors  from 'cors';
+
+
+
+
+//routes
 const app=express();
+
 
 app.use(cors({
   origin: "http://localhost:5173",
@@ -22,6 +28,7 @@ app.use(express.json())
 // app.use(fileUpload())
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
+
 // app.use(fileUpload({ useTempFiles: true })); // <-- update this line
 // 
 // Route
@@ -30,6 +37,7 @@ app.use("/api/v1",user)
 app.use("/api/v1",cart)
 app.use("/api/v1",order)
 app.use("/api/v1",payment)
+
 
 app.use(errorHandleMiddleware)
 dotenv.config({path:'backend/config/config.env'})

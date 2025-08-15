@@ -134,7 +134,7 @@ const ResetPassword = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-white to-emerald-50 flex items-center justify-center p-4 mt-10">
-      <div className="bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-md">
+      <div className="bg-white shadow-2xl overflow-hidden w-full max-w-md">
         <div className="flex flex-col items-center bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
           <button
             onClick={handleBackToSignIn}
@@ -164,7 +164,7 @@ const ResetPassword = () => {
                 value={formData.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`block w-full pl-10 pr-12 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                className={`block w-full pl-10 pr-12 py-2 border shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
                   fieldErrors.password && touchedFields.password 
                     ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
                     : 'border-gray-300 hover:border-gray-400'
@@ -225,7 +225,7 @@ const ResetPassword = () => {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`block w-full pl-10 pr-12 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
+                className={`block w-full pl-10 pr-12 py-2 border shadow-sm focus:ring-blue-500 focus:border-blue-500 ${
                   fieldErrors.confirmPassword && touchedFields.confirmPassword 
                     ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
                     : 'border-gray-300 hover:border-gray-400'
@@ -248,33 +248,12 @@ const ResetPassword = () => {
               </p>
             ) : null}
           </div>
-{/* 
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Password Requirements:</h4>
-            <ul className="text-xs text-gray-600 space-y-1.5">
-              <li className={`flex items-start gap-2 ${formData.password.length >= 8 ? 'text-green-600' : ''}`}>
-                <div className={`w-1.5 h-1.5 rounded-full mt-1 ${formData.password.length >= 8 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                At least 8 characters long
-              </li>
-              <li className={`flex items-start gap-2 ${/[a-z]/.test(formData.password) ? 'text-green-600' : ''}`}>
-                <div className={`w-1.5 h-1.5 rounded-full mt-1 ${/[a-z]/.test(formData.password) ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                One lowercase letter
-              </li>
-              <li className={`flex items-start gap-2 ${/[A-Z]/.test(formData.password) ? 'text-green-600' : ''}`}>
-                <div className={`w-1.5 h-1.5 rounded-full mt-1 ${/[A-Z]/.test(formData.password) ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                One uppercase letter
-              </li>
-              <li className={`flex items-start gap-2 ${/\d/.test(formData.password) ? 'text-green-600' : ''}`}>
-                <div className={`w-1.5 h-1.5 rounded-full mt-1 ${/\d/.test(formData.password) ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                One number
-              </li>
-            </ul>
-          </div> */}
+
 
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2.5 px-4 font-medium text-white rounded-md transition-all duration-200 flex items-center justify-center gap-2 ${
+            className={`w-full py-2.5 px-4 font-medium text-white  transition-all duration-200 flex items-center justify-center gap-2 ${
               loading
                 ? 'bg-blue-400 cursor-not-allowed'
                 : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:scale-[0.98] shadow-md hover:shadow-lg'
@@ -286,17 +265,17 @@ const ResetPassword = () => {
                 Updating password...
               </>
             ) : (
-              'Update Password'
+              'Submit'
             )}
           </button>
 
-          <div className="text-center pt-2">
+          <div className="text-center -mt-3">
             <p className="text-sm text-gray-500">
               Remember your password?{' '}
               <button
                 type="button"
                 onClick={handleBackToSignIn}
-                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                className="cursor-pointer text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 disabled={loading}
               >
                 Sign in 

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import {
   forgotPassword,
   removeErrors,
@@ -10,46 +10,58 @@ import { toast } from "react-hot-toast";
 import { Loader2 } from "lucide-react";
 
 const ForgotPassword = () => {
-  const location = useLocation();
-  const email = location.state?.email || "";
+  const [email, setEmail] = useState("");
+  const [localError, setLocalError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, error, success, message, user } = useSelector(
+  const { loading, error, success, message } = useSelector(
     (state) => state.user
   );
 
   useEffect(() => {
-    dispatch(removeErrors());
-    dispatch(removeSuccess());
-
-    if (!email) {
-      toast.error("No email provided for reset password");
-      navigate("/sign-in");
+    if (error) {
+      setLocalError(error);
+      setShowSuccess(false);
+      dispatch(removeErrors());
     }
-  }, [dispatch, email, navigate]);
+  }, [error, dispatch]);
 
   useEffect(() => {
-    if (success && message && user?._id) {
+    if (success && message) {
       toast.success(message);
+      setShowSuccess(true);
+      setLocalError("");
+      dispatch(removeSuccess());
     }
-  }, [success, message, navigate, email, user]);
+  }, [success, message, dispatch]);
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (localError) {
+      setLocalError("");
+    }
+    if (showSuccess) {
+      setShowSuccess(false);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!email) {
+      setLocalError("Email is required");
+      return;
+    }
     dispatch(forgotPassword(email));
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
           Verify Your Email
         </h2>
-        <p className="text-gray-600 mb-6 text-center">
-          We'll send a reset link to your email address
-        </p>
-
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <label
@@ -63,37 +75,45 @@ const ForgotPassword = () => {
               id="email"
               name="email"
               value={email}
-              readOnly
-              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+              onChange={handleEmailChange}
+              className={`w-full px-4 py-2 border focus:outline-none focus:ring-2 ${
+                localError
+                  ? "border-red-500 focus:ring-red-100"
+                  : "border-gray-300 focus:ring-blue-400"
+              }`}
             />
+            {localError && (
+              <p className="text-red-600 text-sm mt-1">{localError}</p>
+            )}
+            {showSuccess && (
+              <p className="text-green-600 text-sm mt-1">{message} </p>
+            )}
           </div>
-           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
-              We'll send you a secure link to reset your password. The link will expire in 2 min for your security.
-            </p>
-          </div>
+
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-              loading ? "opacity-70 cursor-not-allowed" : ""
+            disabled={loading || showSuccess}
+            className={`w-full py-2 px-4 -mt-4 bg-blue-600 text-white font-medium  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ${
+              loading || showSuccess ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
             {loading ? (
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center gap-2">
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <p>Sending reset link..</p> 
-              </ div>
+                <span>Sending reset link...</span>
+              </div>
+            ) : showSuccess ? (
+              "Sent successfully"
             ) : (
-              "Send Reset Link"
+              "Send"
             )}
           </button>
 
-          <div className="text-center">
+          <div className="text-center -mt-3">
             <button
               type="button"
               onClick={() => navigate("/sign-in")}
-              className="text-sm text-blue-600 hover:text-blue-800"
+              className="text-sm text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
             >
               Back to Sign In
             </button>

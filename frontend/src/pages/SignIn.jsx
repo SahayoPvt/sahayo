@@ -17,9 +17,8 @@ const SignIn = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isVerify, setIsVerify] = useState(false);
 
-  const { error, loading, isAuthenticated, success, message, user } = useSelector(
-    (state) => state.user
-  );
+  const { error, loading, isAuthenticated, success, message, user } =
+    useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -101,7 +100,7 @@ const SignIn = () => {
   }, [dispatch, success, isAuthenticated, navigate]);
 
   window.scrollTo({ top: 0, behavior: "smooth" });
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 mt-8">
       <div className="bg-white shadow-2xl overflow-hidden w-full max-w-md">
@@ -154,7 +153,8 @@ const SignIn = () => {
               >
                 Password
               </label>
-              <button onClick={handleForgetPassword}
+              <button
+                onClick={handleForgetPassword}
                 className="cursor-pointer text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 disabled={loading}
               >

@@ -202,52 +202,52 @@ export const updatePassword = createAsyncThunk(
 export const forgotPassword = createAsyncThunk(
   "user/forgotPassword",
   async (email, { rejectWithValue }) => {
-    // try {
-    //     console.log("email-",email);
-
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   };
-    //   const { data } = await axios.post(
-    //     "/api/v1/password/forgot",
-    //     email,
-    //     config
-    //   );
-  
-    //   console.log(data);
-      
-    //   return data;
-    // } catch (error) {
-    //   return rejectWithValue(
-    //     error.response?.data || { message: "Email sent Failed" }
-    //   );
-    // }
+    try {
 
 
-     try {
-      const response = await fetch("/api/v1/password/forgot", {
-        method: "POST",
-        // credentials: 'include', // include cookies if needed
+      const config = {
         headers: {
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({email})
-      });
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-
-      if (!response.ok) {
-        return rejectWithValue(
-          data.message || JSON.stringify(data) || "Failed to load user profile"
-        );
-      }
+      };
+      const { data } = await axios.post(
+        "/api/v1/password/forgot",
+        {email},
+        config
+      );
+  
+      console.log("gggggggg--------------",data);
+      
       return data;
     } catch (error) {
-      return rejectWithValue(error.message || "Failed to load user profile");
+      return rejectWithValue(
+        error.response?.data || { message: "Email sent Failed" }
+      );
     }
+
+
+    //  try {
+    //   const response = await fetch("/api/v1/password/forgot", {
+    //     method: "POST",
+    //     // credentials: 'include', // include cookies if needed
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body:JSON.stringify({email})
+    //   });
+    //   console.log("iiiiii-------------",response);
+    //   const data = await response.json();
+    //   console.log(data);
+
+    //   if (!response.ok) {
+    //     return rejectWithValue(
+    //       data.message || JSON.stringify(data) || "Failed to load user profile"
+    //     );
+    //   }
+    //   return data;
+    // } catch (error) {
+    //   return rejectWithValue(error.message || "Failed to load user profile");
+    // }
   }
 );
 export const resetPassword = createAsyncThunk(

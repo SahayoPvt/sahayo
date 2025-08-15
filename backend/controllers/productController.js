@@ -45,6 +45,7 @@ export const createProducts = handleAsyncError(async (req, res, next) => {
 
   return res.status(201).json({
     success: true,
+    message:"Product created successfully",
     product,
   });
 });

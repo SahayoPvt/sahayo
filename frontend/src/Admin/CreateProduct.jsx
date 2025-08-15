@@ -95,6 +95,7 @@ function CreateProduct() {
       toast.error("Please upload at least one image");
       alert("Please upload at least one image",error);
       return;
+      
     }
 
     try {
