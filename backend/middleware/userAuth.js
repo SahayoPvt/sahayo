@@ -9,7 +9,7 @@ export const verifyUserAuth=handleAsyncError(async(req , res, next)=>{
   if(!token){
     return next(new HandleError("Authentication is missing!Please login to access resource",401))
   }
-  const decodedData=jwt.verify(token,process.env.JWT_SECRET_KEY ||"hfdiqwdsafhfdfhisfjdgawsd");
+  const decodedData=jwt.verify(token,process.env.JWT_SECRET_KEY);
   req.user=await User.findById(decodedData.id);
   next();
     

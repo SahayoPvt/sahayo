@@ -35,6 +35,7 @@ import UpdateRole from "./Admin/UpdateRole";
 import MyOrders from "./pages/MyOrders";
 import ConfirmEmailVerification from "./pages/ConfirmEmailVerification";
 import VerifyOtp from "./pages/VerifyOtp";
+// import GoogleLogin from "./utils/GoogleLogin";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -52,6 +53,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/google" element={<GoogleLogin />} /> */}
           <Route path="/product" element={<Products />} />
           <Route path="/mens" element={<Mens />} />
           {/* <Route path="/profile" element={<Profile />} /> */}

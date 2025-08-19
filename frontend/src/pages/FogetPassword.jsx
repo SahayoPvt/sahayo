@@ -76,10 +76,10 @@ const ForgotPassword = () => {
               name="email"
               value={email}
               onChange={handleEmailChange}
-              className={`w-full px-4 py-2 border focus:outline-none focus:ring-2 ${
+              className={`w-full px-4 py-2 border focus:outline-none focus:ring-2 rounded-full ${
                 localError
                   ? "border-red-500 focus:ring-red-100"
-                  : "border-gray-300 focus:ring-blue-400"
+                  : "border-gray-300 "
               }`}
             />
             {localError && (
@@ -93,7 +93,7 @@ const ForgotPassword = () => {
           <button
             type="submit"
             disabled={loading || showSuccess}
-            className={`w-full py-2 px-4 -mt-4 bg-blue-600 text-white font-medium  hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ${
+            className={`w-full py-2 px-4 -mt-4 rounded-full text-white bg-indigo-500 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors ${
               loading || showSuccess ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >
