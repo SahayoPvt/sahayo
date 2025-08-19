@@ -58,8 +58,8 @@ const ConfirmEmailVerification = () => {
           We'll send a verification code to your email address
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
               Email Address
             </label>
@@ -69,14 +69,28 @@ const ConfirmEmailVerification = () => {
               name="email"
               value={email}
               readOnly
-              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-gray-100 cursor-not-allowed"
+              className="w-full px-4 py-2 border border-gray-300 rounded-full bg-gray-100 cursor-not-allowed"
+            />
+          </div> */}
+
+           <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-10 rounded-full overflow-hidden pl-6 gap-2">
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fillRule="evenodd" clipRule="evenodd" d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z" fill="#6B7280"/>
+            </svg>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email id"
+              className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full"
+              value={email}
+              readOnly
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+            className={`w-full py-2 px-4 rounded-full text-white bg-indigo-500 font-medium  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
               loading ? "opacity-70 cursor-not-allowed" : ""
             }`}
           >

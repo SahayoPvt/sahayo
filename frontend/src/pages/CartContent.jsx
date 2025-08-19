@@ -148,13 +148,6 @@ const CartContent = ({ toggleCartDrawer }) => {
   // Use the new cart slice state
   const { loading,totalPrice, cartItems, error, success, message } = useSelector(state => state.newcart);
   const { isAuthenticated, user } = useSelector((state) => state.user);
-
-  
-
-
-  console.log("cart->",cartItems,totalPrice);
-  
-  // Fetch cart on component mount
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(fetchUserCart());
@@ -194,7 +187,6 @@ const handleIncrement = (product) => {
   //   });
   //   return;
   // }
-    console.log("iiiii",product);
 
   dispatch(incrementQuantity({
     productId: product.product._id,

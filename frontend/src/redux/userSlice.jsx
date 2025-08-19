@@ -1,6 +1,33 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// login with google token
+export const google = createAsyncThunk(
+  "user/google",
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/auth/google", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          avatar: user.photoURL,
+        }),
+      });
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      return rejectWithValue(
+        error.message || "Registration failed. Please try again later"
+      );
+    }
+  }
+);
+
 // Register API
 export const register = createAsyncThunk(
   "user/register",
@@ -51,15 +78,14 @@ export const login = createAsyncThunk(
 // SendOtp
 export const SendOtp = createAsyncThunk(
   "user/sendotp",
-  async ( email , { rejectWithValue }) => {
-    
+  async (email, { rejectWithValue }) => {
     try {
       const response = await fetch("/api/v1/sendotp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({email}),
+        body: JSON.stringify({ email }),
       });
-      
+
       const data = await response.json();
 
       if (!response.ok) {
@@ -84,12 +110,9 @@ export const VerifyOTP = createAsyncThunk(
       const response = await fetch("/api/v1/verify-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, otp}),
+        body: JSON.stringify({ userId, otp }),
       });
       const data = await response.json();
-      console.log("llll+ukkuk",userId,otp);
-      console.log("llll",data);
-      
 
       if (!response.ok) {
         return rejectWithValue(
@@ -108,17 +131,11 @@ export const VerifyOTP = createAsyncThunk(
 export const loadUser = createAsyncThunk(
   "user/loadUser",
   async (_, { rejectWithValue }) => {
-    // try{
-    //     const {data}=await axios.get('/api/v1/profile');
-    //     return data
-    // }catch(error){
-    //     return rejectWithValue(error.response?.data || 'Failed to load user profile')
-    // }
+  
 
     try {
       const response = await fetch("/api/v1/profile", {
         method: "GET",
-        // credentials: 'include', // include cookies if needed
         headers: {
           "Content-Type": "application/json",
         },
@@ -164,7 +181,6 @@ export const updateProfile = createAsyncThunk(
         userData,
         config
       );
-      console.log("upas ijd", data);
 
       return data;
     } catch (error) {
@@ -191,7 +207,6 @@ export const updatePassword = createAsyncThunk(
         formData,
         config
       );
-      console.log("update password---", data);
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data || "Password update failed");
@@ -203,8 +218,6 @@ export const forgotPassword = createAsyncThunk(
   "user/forgotPassword",
   async (email, { rejectWithValue }) => {
     try {
-
-
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -212,70 +225,28 @@ export const forgotPassword = createAsyncThunk(
       };
       const { data } = await axios.post(
         "/api/v1/password/forgot",
-        {email},
+        { email },
         config
       );
-  
-      console.log("gggggggg--------------",data);
-      
+
       return data;
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: "Email sent Failed" }
       );
     }
-
-
-    //  try {
-    //   const response = await fetch("/api/v1/password/forgot", {
-    //     method: "POST",
-    //     // credentials: 'include', // include cookies if needed
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body:JSON.stringify({email})
-    //   });
-    //   console.log("iiiiii-------------",response);
-    //   const data = await response.json();
-    //   console.log(data);
-
-    //   if (!response.ok) {
-    //     return rejectWithValue(
-    //       data.message || JSON.stringify(data) || "Failed to load user profile"
-    //     );
-    //   }
-    //   return data;
-    // } catch (error) {
-    //   return rejectWithValue(error.message || "Failed to load user profile");
-    // }
   }
 );
 export const resetPassword = createAsyncThunk(
   "user/resetPassword",
   async ({ token, userData }, { rejectWithValue }) => {
-    // try{
-    //     const config={
-    //         headers:{
-    //             'Content-Type':'application/json'
-    //         }
-    //     }
-    //     const {data}=await axios.post(`/api/v1/reset/${token}`,userData,config);
-    //     return data
-    // }catch(error){
-    //     return rejectWithValue(error.response?.data || {message:'Email sent Failed'})
-    // }
-
     try {
       const response = await fetch(`/api/v1/password/reset/${token}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
       });
-      console.log("ffff-",response);
-      
       const data = await response.json();
-      console.log("newwww-",data);
-
       if (!response.ok) {
         return rejectWithValue(
           data.message || { message: "Reset password failed" }
@@ -293,7 +264,9 @@ export const resetPassword = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")) : null,
+    user: localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null,
     loading: false,
     error: null,
     success: false,
@@ -309,6 +282,32 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Google login cases (added)
+    builder
+      .addCase(google.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(google.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.success = action.payload.success;
+        state.user = action.payload?.user || null;
+        state.message = action.payload.success;
+        state.isAuthenticated = Boolean(action.payload?.user);
+        localStorage.setItem("user", JSON.stringify(state.user));
+        localStorage.setItem(
+          "isAuthenticated",
+          JSON.stringify(state.isAuthenticated)
+        );
+      })
+      .addCase(google.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          action.payload || "Google login failed. Please try again later";
+        state.user = null;
+        state.isAuthenticated = false;
+      });
     // Registration cases
     builder
       .addCase(register.pending, (state) => {
@@ -319,8 +318,7 @@ const userSlice = createSlice({
         state.success = action.payload.success;
         state.user = action.payload?.user || null;
         (state.isAuthenticated = Boolean(action.payload?.user)),
-
-        (state.userId = action.payload.userId),
+          (state.userId = action.payload.userId),
           //Store in localStorage
           localStorage.setItem("user", JSON.stringify(state.user));
         localStorage.setItem(
@@ -435,17 +433,14 @@ const userSlice = createSlice({
       })
       .addCase(updatePassword.fulfilled, (state, action) => {
         (state.loading = false), (state.error = null);
-        console.log("pay", action.payload);
-
         state.success = action.payload;
       })
       .addCase(updatePassword.rejected, (state, action) => {
-        (state.loading = false), console.log("--", action?.payload);
-
+        (state.loading = false),
         state.error = action?.payload || "Password update failed";
       });
 
-      //SendOtp
+    //SendOtp
     builder
       .addCase(SendOtp.pending, (state) => {
         (state.loading = true), (state.error = null);
@@ -454,28 +449,26 @@ const userSlice = createSlice({
         (state.loading = false), (state.error = null);
         state.success = action?.payload?.success;
         state.message = action?.payload?.message;
-        state.user = action?.payload?.user
-        
+        state.user = action?.payload?.user;
       })
       .addCase(SendOtp.rejected, (state, action) => {
-        state.loading = false,
-        state.error = action?.payload || "Password update failed";
+        (state.loading = false),
+          (state.error = action?.payload || "Password update failed");
       });
 
-      //VerifyOTP
+    //VerifyOTP
     builder
       .addCase(VerifyOTP.pending, (state) => {
         (state.loading = true), (state.error = null);
       })
       .addCase(VerifyOTP.fulfilled, (state, action) => {
         (state.loading = false), (state.error = null);
-        console.log("verifirddd--",action.payload);
         state.success = action.payload.success;
         state.message = action.payload.message;
       })
       .addCase(VerifyOTP.rejected, (state, action) => {
-        (state.loading = false), 
-        state.success = action.payload.success || false;
+        (state.loading = false),
+          (state.success = action.payload.success || false);
 
         state.message = action?.payload.message || "invalid otp";
       });

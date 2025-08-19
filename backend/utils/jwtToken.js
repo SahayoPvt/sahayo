@@ -1,7 +1,7 @@
 export const sendToken=(user,statusCode, message,res)=>{
     const token=user.getJWTToken();
 
-        const expireDays = Number(process.env.EXPIRE_COOKIE) || 7;
+        const expireDays = Number(process.env.EXPIRE_COOKIE);
 
     // options for cookies
     const options={
