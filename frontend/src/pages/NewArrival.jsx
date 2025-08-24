@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../redux/productSlice";
 
 const NewArrivals = () => {
-   const { products }= useSelector(state=>state.product)
- 
-   const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(getProduct())
-  },[dispatch]) 
+  const { products } = useSelector((state) => state.product);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
   const scrollRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -44,12 +44,15 @@ const NewArrivals = () => {
       updateScrollButtons();
     }
   });
+
   return (
-    <div className="mb-4 mt-4">
-        <h2 className="text-2xl font-bold text-slate-900 mb-10">Explore New Arrivals</h2>
-      <div className="container mx-auto text-center mb-10 relative ">
-        {/* scroll  left and right */}
-        {/* <div className="absolute right-0 flex space-x-1">
+    <div className="mx-10 flex flex-col gap-3 sm:mx-20">
+      <h2 className="text-2xl uppercase text-shadow-md">
+        Explore New Arrivals
+      </h2>
+      {/* <div className="container mx-auto text-center mb-10 relative "> */}
+      {/* scroll  left and right */}
+      {/* <div className="absolute right-0 flex space-x-1">
           <button
             onClick={() => scroll("left")}
             disabled={!canScrollLeft}
@@ -74,20 +77,16 @@ const NewArrivals = () => {
             <FiChevronRight className="text-2xl" />
           </button>
         </div> */}
-      </div>
+      {/* </div> */}
       {/* scrollable content */}
-      <div
-        ref={scrollRef}
-        className="conatiner mx-auto flex overflow-x-scroll overflow-y-hidden relative space-x-2 "
-      >
-        {products.filter((_,i)=>i%4==0).map((product) => (
-          <div
-            key={product._id}
-            className="min-w-[50%] sm:min-w-[30%] lg:min-w-[17%] relative"
-          >
-            <Product key={product._id} product={product} />
-          </div>
-        ))}
+      <div ref={scrollRef} className="flex gap-5 overflow-x-auto">
+        {products
+          .filter((_, i) => i < 4)
+          .map((product) => (
+            <div key={product._id}>
+              <Product key={product._id} product={product} />
+            </div>
+          ))}
       </div>
     </div>
   );

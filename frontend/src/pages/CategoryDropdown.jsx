@@ -59,7 +59,6 @@
 
 // export default CategoryDropdown;
 
-
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { ChevronDown, Tag } from "lucide-react";
@@ -68,56 +67,67 @@ import { useSelector } from "react-redux";
 const CategoryDropdown = () => {
   const [item, setitem] = useState(false);
 
-   const { products }= useSelector(state=>state.product)
+  const { products } = useSelector((state) => state.product);
 
-   const men=products.filter(item=>item.category==="Men")
-   const women=products.filter(item=>item.category==="Women")
-   const kid=products.filter(item=>item.category==="Kid")
-  
-  
+  const men = products.filter((item) => item.category === "Men");
+  const women = products.filter((item) => item.category === "Women");
+  const kid = products.filter((item) => item.category === "Kid");
+
   return (
     <div className="dropdown relative inline-flex">
       <button
         onClick={() => setitem(!item)}
         type="button"
         data-target="dropdown-default"
-        className="dropdown-toggle inline-flex justify-center items-center gap-2 font-medium text-gray-700 hover:text-blue-600 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-blue-50 group"
+        className="dropdown-toggle group inline-flex items-center justify-center gap-2 rounded-lg px-3 py-2 font-medium text-gray-700 transition-all duration-300 hover:bg-blue-50 hover:text-blue-600"
       >
-        <Tag className="w-4 h-4" />
+        <Tag className="h-4 w-4" />
         Categories
-        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${item ? 'rotate-180' : ''}`} />
+        <ChevronDown
+          className={`h-4 w-4 transition-transform duration-300 ${
+            item ? "rotate-180" : ""
+          }`}
+        />
       </button>
-      
+
       {item && (
         <div
           id="dropdown-default"
-          className="dropdown-menu rounded-xl shadow-xl bg-white absolute top-full left-0 w-48 mt-2 border border-gray-100 overflow-hidden animate-in slide-in-from-top-2 duration-200"
+          className="dropdown-menu animate-in slide-in-from-top-2 absolute top-full left-0 mt-4 w-48 overflow-hidden rounded-b-xl border border-gray-100 bg-white shadow-xl duration-200"
           aria-labelledby="dropdown-default"
         >
           <div className="py-2">
             <Link
-              to="/mens"
+              to="/blouse"
               onClick={() => setitem(false)}
-              className="flex items-center px-4 py-3 hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all duration-200 group"
+              className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600"
             >
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span className="font-medium">Men's Collection</span>
+              <div className="mr-3 h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <span className="font-medium">Blouse</span>
             </Link>
             <Link
-              to="/womens"
+              to="/kurti"
               onClick={() => setitem(false)}
-              className="flex items-center px-4 py-3 hover:bg-pink-50 text-gray-700 hover:text-pink-600 transition-all duration-200 group"
+              className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600"
             >
-              <div className="w-2 h-2 bg-pink-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span className="font-medium">Women's Collection</span>
+              <div className="mr-3 h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <span className="font-medium">Kurti</span>
             </Link>
             <Link
-              to="/kids"
+              to="/bottom"
               onClick={() => setitem(false)}
-              className="flex items-center px-4 py-3 hover:bg-green-50 text-gray-700 hover:text-green-600 transition-all duration-200 group"
+              className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600"
             >
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              <span className="font-medium">Kids Collection</span>
+              <div className="mr-3 h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <span className="font-medium">Bottom</span>
+            </Link>
+            <Link
+              to="/kurti-set"
+              onClick={() => setitem(false)}
+              className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600"
+            >
+              <div className="mr-3 h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity group-hover:opacity-100"></div>
+              <span className="font-medium">Kurti Set</span>
             </Link>
           </div>
         </div>

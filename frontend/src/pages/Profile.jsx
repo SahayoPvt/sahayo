@@ -9,11 +9,11 @@
 //   FaSpinner,
 // } from "react-icons/fa";
 // import { useDispatch, useSelector } from "react-redux";
-// import { 
-//   removeErrors, 
-//   removeSuccess, 
+// import {
+//   removeErrors,
+//   removeSuccess,
 //   updatePassword,
-//   updateProfile 
+//   updateProfile
 // } from "../redux/userSlice";
 // import toast from "react-hot-toast";
 
@@ -40,7 +40,7 @@
 //   const handleImageChange = (e) => {
 //     const file = e.target.files[0];
 //     console.log(file);
-    
+
 //     if (file) {
 //       const reader = new FileReader();
 //       reader.onload = (event) => {
@@ -52,7 +52,7 @@
 
 //   const handleSaveImage = async () => {
 //     if (!tempImage) return;
-    
+
 //     try {
 //       setIsUploading(true);
 //       const formData = new FormData();
@@ -60,7 +60,7 @@
 //         formData.set("avatar", fileInputRef.current.files[0]);
 //       }
 //       dispatch(updateProfile(formData));
-      
+
 //       // Reset the editing state after successful upload
 //       setIsEditingImage(false);
 //       setTempImage(null);
@@ -106,10 +106,6 @@
 //       dispatch(removeSuccess());
 //     }
 //   }, [dispatch, success]);
-
-
-
-
 
 //   return (
 //     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 mt-10">
@@ -194,8 +190,8 @@
 //           <div className="relative mx-auto w-32 h-32 mb-4 group">
 //             <img
 //               src={
-//                 isEditingImage && tempImage && user 
-//                   ? tempImage 
+//                 isEditingImage && tempImage && user
+//                   ? tempImage
 //                   : user?.avatar?.url || "https://images.unsplash.com/photo-1633332755192-727a05c4013d"
 //               }
 //               alt={`${user?.name}'s profile picture`}
@@ -262,7 +258,6 @@
 //           <h1 className="text-2xl font-bold text-center text-gray-800 mb-1">
 //             {user?.name}
 //           </h1>
-      
 
 //           <div className="space-y-4 mb-6">
 //             <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
@@ -310,7 +305,7 @@
 
 // export default UserProfileCard;
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import {
   Mail,
   Calendar,
@@ -324,16 +319,16 @@ import {
   EyeOff,
   Upload,
   User,
-  Settings
-} from 'lucide-react';
-import { useDispatch, useSelector } from 'react-redux';
-import { 
-  removeErrors, 
-  removeSuccess, 
+  Settings,
+} from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeErrors,
+  removeSuccess,
   updatePassword,
-  updateProfile 
-} from '../redux/userSlice';
-import toast from 'react-hot-toast';
+  updateProfile,
+} from "../redux/userSlice";
+import toast from "react-hot-toast";
 
 const UserProfile = () => {
   // Redux state
@@ -345,24 +340,24 @@ const UserProfile = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [isEditingImage, setIsEditingImage] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  
+
   // Password form state
   const [passwordForm, setPasswordForm] = useState({
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: ''
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
   const [showPasswords, setShowPasswords] = useState({
     old: false,
     new: false,
-    confirm: false
+    confirm: false,
   });
 
   // Profile edit state
   const [editForm, setEditForm] = useState({
-    name: user?.name || '',
-    email: user?.email || '',
-    role: user?.role || ''
+    name: user?.name || "",
+    email: user?.email || "",
+    role: user?.role || "",
   });
 
   // Image handling
@@ -373,9 +368,9 @@ const UserProfile = () => {
   useEffect(() => {
     if (user) {
       setEditForm({
-        name: user.name || '',
-        email: user.email || '',
-        role: user.role || ''
+        name: user.name || "",
+        email: user.email || "",
+        role: user.role || "",
       });
     }
   }, [user]);
@@ -383,9 +378,9 @@ const UserProfile = () => {
   // Handle Redux errors and success messages
   useEffect(() => {
     if (error) {
-      toast.error(error?.message || 'An error occurred', { 
-        position: 'top-center', 
-        duration: 3000 
+      toast.error(error?.message || "An error occurred", {
+        position: "top-center",
+        duration: 3000,
       });
       dispatch(removeErrors());
     }
@@ -393,9 +388,9 @@ const UserProfile = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success(success?.message || 'Operation successful', { 
-        position: 'top-center', 
-        duration: 3000 
+      toast.success(success?.message || "Operation successful", {
+        position: "top-center",
+        duration: 3000,
       });
       dispatch(removeSuccess());
     }
@@ -408,23 +403,25 @@ const UserProfile = () => {
     const hasLower = /[a-z]/.test(password);
     const hasNumber = /\d/.test(password);
     const hasSpecial = /[!@#$%^&*]/.test(password);
-    
+
     return {
       minLength,
       hasUpper,
       hasLower,
       hasNumber,
       hasSpecial,
-      isValid: minLength && hasUpper && hasLower && hasNumber && hasSpecial
+      isValid: minLength && hasUpper && hasLower && hasNumber && hasSpecial,
     };
   };
 
   const passwordValidation = validatePassword(passwordForm.newPassword);
-  const passwordsMatch = passwordForm.newPassword === passwordForm.confirmPassword;
+  const passwordsMatch =
+    passwordForm.newPassword === passwordForm.confirmPassword;
 
   // Image error handler
   const handleImageError = (e) => {
-    e.target.src = "https://res.cloudinary.com/dbzcmxy5f/image/upload/v1749755464/avatar/junykrityyehenm0nfmp.webp";
+    e.target.src =
+      "https://res.cloudinary.com/dbzcmxy5f/image/upload/v1749755464/avatar/junykrityyehenm0nfmp.webp";
   };
 
   // Event handlers
@@ -432,10 +429,10 @@ const UserProfile = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        toast.error('File size must be less than 5MB');
+        toast.error("File size must be less than 5MB");
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onload = (event) => {
         setTempImage(event.target?.result);
@@ -446,7 +443,7 @@ const UserProfile = () => {
 
   const handleSaveImage = async () => {
     if (!tempImage || !fileInputRef.current?.files[0]) return;
-    
+
     try {
       setIsUploading(true);
       const formData = new FormData();
@@ -465,7 +462,7 @@ const UserProfile = () => {
     setIsEditingImage(false);
     setTempImage(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -480,7 +477,7 @@ const UserProfile = () => {
 
     dispatch(updatePassword(myForm));
     setShowPasswordModal(false);
-    setPasswordForm({ oldPassword: '', newPassword: '', confirmPassword: '' });
+    setPasswordForm({ oldPassword: "", newPassword: "", confirmPassword: "" });
   };
 
   const handleProfileUpdate = async (e) => {
@@ -491,7 +488,7 @@ const UserProfile = () => {
     if (editForm.role) {
       formData.set("role", editForm.role);
     }
-    
+
     dispatch(updateProfile(formData));
     setShowEditModal(false);
   };
@@ -499,9 +496,9 @@ const UserProfile = () => {
   // Don't render if no user data
   if (!user) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-blue-600" />
+          <Loader2 className="mx-auto mb-4 h-8 w-8 animate-spin text-blue-600" />
           <p className="text-gray-600">Loading profile...</p>
         </div>
       </div>
@@ -509,19 +506,23 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4 py-12 mt-12">
+    <div className="mt-12 flex min-h-screen items-center justify-center p-4 py-12">
       {/* Password Update Modal */}
       {showPasswordModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg mx-4 animate-in slide-in-from-bottom-4 duration-300">
-            <div className="flex justify-between items-center mb-8">
+        <div className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm duration-200">
+          <div className="animate-in slide-in-from-bottom-4 mx-4 w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl duration-300">
+            <div className="mb-8 flex items-center justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900">Update Password</h3>
-                <p className="text-gray-500 mt-1">Keep your account secure with a strong password</p>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Update Password
+                </h3>
+                <p className="mt-1 text-gray-500">
+                  Keep your account secure with a strong password
+                </p>
               </div>
               <button
                 onClick={() => setShowPasswordModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
+                className="rounded-xl p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
               >
                 <X size={20} />
               </button>
@@ -530,48 +531,70 @@ const UserProfile = () => {
             <form onSubmit={handlePasswordUpdate} className="space-y-6">
               {/* Current Password */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="mb-3 block text-sm font-semibold text-gray-700">
                   Current Password
                 </label>
                 <div className="relative">
                   <input
-                    type={showPasswords.old ? 'text' : 'password'}
+                    type={showPasswords.old ? "text" : "password"}
                     value={passwordForm.oldPassword}
-                    onChange={(e) => setPasswordForm(prev => ({ ...prev, oldPassword: e.target.value }))}
-                    className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        oldPassword: e.target.value,
+                      }))
+                    }
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pr-12 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
                     required
                     placeholder="Enter current password"
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPasswords(prev => ({ ...prev, old: !prev.old }))}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    onClick={() =>
+                      setShowPasswords((prev) => ({ ...prev, old: !prev.old }))
+                    }
+                    className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 transition-colors hover:text-gray-600"
                   >
-                    {showPasswords.old ? <EyeOff size={18} /> : <Eye size={18} />}
+                    {showPasswords.old ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
                   </button>
                 </div>
               </div>
 
               {/* New Password */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="mb-3 block text-sm font-semibold text-gray-700">
                   New Password
                 </label>
                 <div className="relative">
                   <input
-                    type={showPasswords.new ? 'text' : 'password'}
+                    type={showPasswords.new ? "text" : "password"}
                     value={passwordForm.newPassword}
-                    onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
-                    className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        newPassword: e.target.value,
+                      }))
+                    }
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pr-12 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
                     required
                     placeholder="Enter new password"
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPasswords(prev => ({ ...prev, new: !prev.new }))}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    onClick={() =>
+                      setShowPasswords((prev) => ({ ...prev, new: !prev.new }))
+                    }
+                    className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 transition-colors hover:text-gray-600"
                   >
-                    {showPasswords.new ? <EyeOff size={18} /> : <Eye size={18} />}
+                    {showPasswords.new ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
                   </button>
                 </div>
 
@@ -579,24 +602,69 @@ const UserProfile = () => {
                 {passwordForm.newPassword && (
                   <div className="mt-3 space-y-2">
                     <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div className={`flex items-center gap-1 ${passwordValidation.minLength ? 'text-green-600' : 'text-gray-400'}`}>
-                        <Check size={12} className={passwordValidation.minLength ? 'opacity-100' : 'opacity-30'} />
+                      <div
+                        className={`flex items-center gap-1 ${passwordValidation.minLength ? "text-green-600" : "text-gray-400"}`}
+                      >
+                        <Check
+                          size={12}
+                          className={
+                            passwordValidation.minLength
+                              ? "opacity-100"
+                              : "opacity-30"
+                          }
+                        />
                         8+ characters
                       </div>
-                      <div className={`flex items-center gap-1 ${passwordValidation.hasUpper ? 'text-green-600' : 'text-gray-400'}`}>
-                        <Check size={12} className={passwordValidation.hasUpper ? 'opacity-100' : 'opacity-30'} />
+                      <div
+                        className={`flex items-center gap-1 ${passwordValidation.hasUpper ? "text-green-600" : "text-gray-400"}`}
+                      >
+                        <Check
+                          size={12}
+                          className={
+                            passwordValidation.hasUpper
+                              ? "opacity-100"
+                              : "opacity-30"
+                          }
+                        />
                         Uppercase letter
                       </div>
-                      <div className={`flex items-center gap-1 ${passwordValidation.hasLower ? 'text-green-600' : 'text-gray-400'}`}>
-                        <Check size={12} className={passwordValidation.hasLower ? 'opacity-100' : 'opacity-30'} />
+                      <div
+                        className={`flex items-center gap-1 ${passwordValidation.hasLower ? "text-green-600" : "text-gray-400"}`}
+                      >
+                        <Check
+                          size={12}
+                          className={
+                            passwordValidation.hasLower
+                              ? "opacity-100"
+                              : "opacity-30"
+                          }
+                        />
                         Lowercase letter
                       </div>
-                      <div className={`flex items-center gap-1 ${passwordValidation.hasNumber ? 'text-green-600' : 'text-gray-400'}`}>
-                        <Check size={12} className={passwordValidation.hasNumber ? 'opacity-100' : 'opacity-30'} />
+                      <div
+                        className={`flex items-center gap-1 ${passwordValidation.hasNumber ? "text-green-600" : "text-gray-400"}`}
+                      >
+                        <Check
+                          size={12}
+                          className={
+                            passwordValidation.hasNumber
+                              ? "opacity-100"
+                              : "opacity-30"
+                          }
+                        />
                         Number
                       </div>
-                      <div className={`flex items-center gap-1 ${passwordValidation.hasSpecial ? 'text-green-600' : 'text-gray-400'}`}>
-                        <Check size={12} className={passwordValidation.hasSpecial ? 'opacity-100' : 'opacity-30'} />
+                      <div
+                        className={`flex items-center gap-1 ${passwordValidation.hasSpecial ? "text-green-600" : "text-gray-400"}`}
+                      >
+                        <Check
+                          size={12}
+                          className={
+                            passwordValidation.hasSpecial
+                              ? "opacity-100"
+                              : "opacity-30"
+                          }
+                        />
                         Special character
                       </div>
                     </div>
@@ -606,28 +674,44 @@ const UserProfile = () => {
 
               {/* Confirm Password */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <label className="mb-3 block text-sm font-semibold text-gray-700">
                   Confirm New Password
                 </label>
                 <div className="relative">
                   <input
-                    type={showPasswords.confirm ? 'text' : 'password'}
+                    type={showPasswords.confirm ? "text" : "password"}
                     value={passwordForm.confirmPassword}
-                    onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                    className="w-full px-4 py-3 pr-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-gray-50 focus:bg-white"
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        confirmPassword: e.target.value,
+                      }))
+                    }
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 pr-12 transition-all outline-none focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-500"
                     required
                     placeholder="Confirm new password"
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPasswords(prev => ({ ...prev, confirm: !prev.confirm }))}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                    onClick={() =>
+                      setShowPasswords((prev) => ({
+                        ...prev,
+                        confirm: !prev.confirm,
+                      }))
+                    }
+                    className="absolute top-1/2 right-3 -translate-y-1/2 p-1 text-gray-400 transition-colors hover:text-gray-600"
                   >
-                    {showPasswords.confirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                    {showPasswords.confirm ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
                   </button>
                 </div>
                 {passwordForm.confirmPassword && !passwordsMatch && (
-                  <p className="text-red-500 text-xs mt-2">Passwords do not match</p>
+                  <p className="mt-2 text-xs text-red-500">
+                    Passwords do not match
+                  </p>
                 )}
               </div>
 
@@ -635,14 +719,16 @@ const UserProfile = () => {
                 <button
                   type="button"
                   onClick={() => setShowPasswordModal(false)}
-                  className="px-6 py-3 border border-gray-200 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors font-medium"
+                  className="rounded-xl border border-gray-200 px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  disabled={!passwordValidation.isValid || !passwordsMatch || loading}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium flex items-center gap-2 min-w-[120px] justify-center"
+                  disabled={
+                    !passwordValidation.isValid || !passwordsMatch || loading
+                  }
+                  className="flex min-w-[120px] items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {loading ? (
                     <>
@@ -650,7 +736,7 @@ const UserProfile = () => {
                       Updating...
                     </>
                   ) : (
-                    'Update Password'
+                    "Update Password"
                   )}
                 </button>
               </div>
@@ -661,16 +747,20 @@ const UserProfile = () => {
 
       {/* Edit Profile Modal */}
       {showEditModal && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg mx-4 animate-in slide-in-from-bottom-4 duration-300">
-            <div className="flex justify-between items-center mb-8">
+        <div className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm duration-200">
+          <div className="animate-in slide-in-from-bottom-4 mx-4 w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl duration-300">
+            <div className="mb-8 flex items-center justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-gray-900">Edit Profile</h3>
-                <p className="text-gray-500 mt-1">Update your personal information</p>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  Edit Profile
+                </h3>
+                <p className="mt-1 text-gray-500">
+                  Update your personal information
+                </p>
               </div>
               <button
                 onClick={() => setShowEditModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl transition-colors"
+                className="rounded-xl p-2 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600"
               >
                 <X size={20} />
               </button>
@@ -745,37 +835,41 @@ const UserProfile = () => {
       )}
 
       {/* Main Profile Card */}
-      <div className="max-w-md w-full bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden transition-all hover:shadow-2xl border border-white/20 animate-in slide-in-from-bottom-6 duration-500">
+      <div className="animate-in slide-in-from-bottom-6 w-full max-w-md overflow-hidden rounded-3xl border border-white/20 bg-white/80 shadow-xl backdrop-blur-sm transition-all duration-500 hover:shadow-2xl">
         {/* Profile Header */}
         <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 p-8 pb-20">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-transparent"></div>
-          
+
           {/* Profile Picture */}
-          <div className="relative mx-auto w-36 h-36 mb-6 group">
-            <div className="relative w-full h-full rounded-full border-4 border-white/20 shadow-2xl overflow-hidden bg-white">
+          <div className="group relative mx-auto mb-6 h-36 w-36">
+            <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-white/20 bg-white shadow-2xl">
               <img
                 src={
-                  isEditingImage && tempImage 
-                    ? tempImage 
-                    : user?.avatar?.url || 'https://res.cloudinary.com/dbzcmxy5f/image/upload/v1749755464/avatar/junykrityyehenm0nfmp.webp'
+                  isEditingImage && tempImage
+                    ? tempImage
+                    : user?.avatar?.url ||
+                      "https://res.cloudinary.com/dbzcmxy5f/image/upload/v1749755464/avatar/junykrityyehenm0nfmp.webp"
                 }
                 alt={`${user?.name}'s profile`}
                 onError={handleImageError}
                 loading="lazy"
-                className={`w-full h-full object-cover transition-all duration-300 ${
-                  isEditingImage ? 'scale-110' : 'group-hover:scale-105'
+                className={`h-full w-full object-cover transition-all duration-300 ${
+                  isEditingImage ? "scale-110" : "group-hover:scale-105"
                 }`}
               />
-              
+
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                <Camera className="text-white opacity-0 group-hover:opacity-100 transition-all duration-300" size={24} />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
+                <Camera
+                  className="text-white opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  size={24}
+                />
               </div>
             </div>
 
             {/* Edit Button */}
             <button
-              className="absolute -bottom-2 -right-2 p-3 bg-white rounded-full shadow-lg hover:shadow-xl text-blue-600 hover:bg-blue-50 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+              className="absolute -right-2 -bottom-2 rounded-full bg-white p-3 text-blue-600 shadow-lg transition-all duration-300 hover:scale-110 hover:bg-blue-50 hover:shadow-xl focus:ring-4 focus:ring-blue-500/20 focus:outline-none"
               onClick={() => setIsEditingImage(!isEditingImage)}
               aria-label="Edit profile picture"
             >
@@ -784,7 +878,7 @@ const UserProfile = () => {
 
             {/* Image Edit Overlay */}
             {isEditingImage && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 rounded-full p-4 animate-in fade-in duration-200">
+              <div className="animate-in fade-in absolute inset-0 flex flex-col items-center justify-center rounded-full bg-black/80 p-4 duration-200">
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -794,7 +888,7 @@ const UserProfile = () => {
                 />
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-4 py-2 bg-white text-gray-900 rounded-full text-sm font-semibold mb-3 hover:bg-gray-100 transition-colors flex items-center gap-2"
+                  className="mb-3 flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-900 transition-colors hover:bg-gray-100"
                 >
                   <Upload size={16} />
                   Choose Photo
@@ -802,14 +896,14 @@ const UserProfile = () => {
                 <div className="flex gap-2">
                   <button
                     onClick={handleCancelImageEdit}
-                    className="px-3 py-1.5 bg-gray-200 text-gray-700 rounded-full text-xs font-medium hover:bg-gray-300 transition-colors"
+                    className="rounded-full bg-gray-200 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-gray-300"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSaveImage}
                     disabled={!tempImage || isUploading}
-                    className="px-3 py-1.5 bg-blue-600 text-white rounded-full text-xs font-medium hover:bg-blue-700 transition-colors flex items-center gap-1 disabled:opacity-50"
+                    className="flex items-center gap-1 rounded-full bg-blue-600 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-blue-700 disabled:opacity-50"
                   >
                     {isUploading ? (
                       <>
@@ -817,7 +911,7 @@ const UserProfile = () => {
                         Saving
                       </>
                     ) : (
-                      'Save'
+                      "Save"
                     )}
                   </button>
                 </div>
@@ -827,45 +921,51 @@ const UserProfile = () => {
 
           {/* Status Badge */}
           <div className="absolute top-6 right-6">
-            <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+            <div className="flex items-center gap-1 rounded-full bg-green-500 px-3 py-1 text-xs font-semibold text-white">
+              <div className="h-2 w-2 animate-pulse rounded-full bg-white"></div>
               Active
             </div>
           </div>
         </div>
 
         {/* Profile Content */}
-        <div className="px-8 pb-8 -mt-12 relative z-10">
+        <div className="relative z-10 -mt-12 px-8 pb-8">
           {/* User Info Card */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-gray-100">
-            <div className="text-center mb-6">
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">
+          <div className="mb-6 rounded-2xl border border-gray-100 bg-white p-6 shadow-lg">
+            <div className="mb-6 text-center">
+              <h1 className="mb-1 text-2xl font-bold text-gray-900">
                 {user?.name}
               </h1>
-              {user?.role==="admin" && (
-                <p className="text-blue-600 font-medium text-sm mb-2">Admin</p>
+              {user?.role === "admin" && (
+                <p className="mb-2 text-sm font-medium text-blue-600">Admin</p>
               )}
             </div>
 
             {/* Info Grid */}
             <div className="space-y-4">
-              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                <div className="p-3 bg-blue-100 rounded-xl text-blue-600">
+              <div className="flex items-center space-x-4 rounded-xl border border-blue-100 bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
+                <div className="rounded-xl bg-blue-100 p-3 text-blue-600">
                   <Mail size={20} />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Email Address</p>
-                  <p className="text-gray-900 font-medium truncate">{user?.email}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    Email Address
+                  </p>
+                  <p className="truncate font-medium text-gray-900">
+                    {user?.email}
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
-                <div className="p-3 bg-green-100 rounded-xl text-green-600">
+              <div className="flex items-center space-x-4 rounded-xl border border-green-100 bg-gradient-to-r from-green-50 to-emerald-50 p-4">
+                <div className="rounded-xl bg-green-100 p-3 text-green-600">
                   <Calendar size={20} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-1">Member Since</p>
-                  <p className="text-gray-900 font-medium">
+                  <p className="mb-1 text-xs font-semibold tracking-wider text-gray-500 uppercase">
+                    Member Since
+                  </p>
+                  <p className="font-medium text-gray-900">
                     {user?.createdAt
                       ? new Date(user.createdAt).toLocaleDateString("en-US", {
                           day: "numeric",
@@ -888,17 +988,17 @@ const UserProfile = () => {
               <Edit3 size={18} />
               <span>Edit Profile</span>
             </button> */}
-            
+
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => setShowPasswordModal(true)}
-                className="flex items-center justify-center space-x-2 px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-xl text-gray-700 transition-all duration-300 border border-gray-200 font-medium hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+                className="flex items-center justify-center space-x-2 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 font-medium text-gray-700 transition-all duration-300 hover:scale-[1.02] hover:bg-gray-100 hover:shadow-md active:scale-[0.98]"
               >
                 <Lock size={16} />
                 <span>Password</span>
               </button>
-              
-              <button className="flex items-center justify-center space-x-2 px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-xl text-gray-700 transition-all duration-300 border border-gray-200 font-medium hover:shadow-md hover:scale-[1.02] active:scale-[0.98]">
+
+              <button className="flex items-center justify-center space-x-2 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 font-medium text-gray-700 transition-all duration-300 hover:scale-[1.02] hover:bg-gray-100 hover:shadow-md active:scale-[0.98]">
                 <Settings size={16} />
                 <span>Settings</span>
               </button>

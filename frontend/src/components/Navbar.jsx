@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { HiOutlineShoppingBag, HiOutlineUser } from "react-icons/hi";
 import { HiBars3BottomRight, HiH1 } from "react-icons/hi2";
 import { IoMdClose } from "react-icons/io";
-import CartDrawer from "./../pages/CartDrawer";
-import SearchBar from "./../pages/SearchBar";
+// import CartDrawer from "./../pages/CartDrawer";
+// import SearchBar from "./../pages/SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import CategoryDropdown from "../pages/CategoryDropdown";
 import { loadUser, logout } from "../redux/userSlice";
@@ -18,14 +18,16 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import Logo from "./Logo";
+import DeliveryLocation from "./Navbar/DeliveryLocation";
 
 const Navbar = () => {
   const [draweOpen, setDrawerOpen] = useState(false);
   const [activeItem, setActiveItem] = useState("Home");
   const [item, setitem] = useState(false);
-  const toggleCartDrawer = () => {
-    setDrawerOpen(!draweOpen);
-  };
+  // const toggleCartDrawer = () => {
+  //   setDrawerOpen(!draweOpen);
+  // };
   const navigate = useNavigate();
   const [navbarOpen, setNavbarOpen] = useState(false);
   const toggleNavDrawer = () => {
@@ -56,7 +58,8 @@ const Navbar = () => {
         });
       });
   };
-  const { loading,totalPrice, cartItems, error, success, message } = useSelector(state => state.newcart);
+  const { loading, totalPrice, cartItems, error, success, message } =
+    useSelector((state) => state.newcart);
 
   // const cartItems = useSelector((state) => state.cart.cartItems);
   // const handleAuth = () => {
@@ -91,27 +94,13 @@ const Navbar = () => {
   return (
     <>
       {/* navbar */}
-      <div className="fixed  top-0 w-full z-50 shadow-md  bg-white  mx-auto flex items-center justify-between py-4 px-3 md:px-6">
-        {/* left-logo */}
-        {/* <div className="">
-          <Link to="/" className=" text-2xl font-medium">
-            Rabbit
-          </Link>
-        </div> */}
+      <div className="fixed z-50 flex h-18 w-full items-center justify-around gap-20 bg-[#fff8f4] shadow-lg">
+        <Logo />
 
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-105 transition-transform duration-200">
-              <span className="text-white font-bold text-lg">R</span>
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Rabbit
-            </span>
-          </Link>
-        </div>
+        <DeliveryLocation />
 
         {/* center-part */}
-        <div className=" hidden md:flex space-x-6 ">
+        <div className="hidden space-x-6 md:flex">
           <Link
             to="/"
             className={`nav-link ${
@@ -123,7 +112,7 @@ const Navbar = () => {
           >
             Home
           </Link>
-          <Link
+          {/* <Link
             to="/product"
             className={`nav-link ${
               activeItem === "All Product"
@@ -133,7 +122,7 @@ const Navbar = () => {
             onClick={() => setActiveItem("All Product")}
           >
             Products
-          </Link>
+          </Link> */}
 
           <CategoryDropdown />
 
@@ -162,10 +151,10 @@ const Navbar = () => {
         </div>
 
         {/* right-part */}
-        <div className="flex items-center  md:space-x-4">
-          <div className="overflow-hidden mr-2 mt-1 md:mr-4">
+        <div className="flex items-center md:space-x-4">
+          {/* <div className="mt-1 mr-2 overflow-hidden md:mr-4">
             <SearchBar />
-          </div>
+          </div> */}
           {/* <button
             onClick={toggleCartDrawer}
             className="relative hover:text-black  mr-5"
@@ -175,46 +164,46 @@ const Navbar = () => {
               {isAuthenticated ? cartItems.length : "0"}
             </span>
           </button> */}
-          <button
+          {/* <button
             onClick={toggleCartDrawer}
-            className="relative hover:text-black  mr-5"
+            className="relative mr-5 hover:text-black"
           >
             <HiOutlineShoppingBag className="h-6 w-6 text-gray-700" />
-            <span className="absolute -top-1 bg-red-400 text-white text-xs rounded-full px-1.5 py-0.5">
+            <span className="absolute -top-1 rounded-full bg-red-400 px-1.5 py-0.5 text-xs text-white">
               {isAuthenticated ? cartItems?.length : "0"}
             </span>
-          </button>
+          </button> */}
           {/* searBar */}
           {isAuthenticated ? (
             <div className="dropdown relative inline-flex">
               <button
                 onClick={() => setitem(!item)}
                 type="button"
-                className="dropdown-toggle flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 group"
+                className="dropdown-toggle group flex items-center space-x-2 rounded-lg px-3 py-2 transition-all duration-200 hover:bg-gray-50"
               >
                 {user && user.avatar ? (
                   <img
                     src={user.avatar.url}
                     alt="avatar"
-                    className="w-8 h-8 rounded-full border-2 border-gray-200 group-hover:border-blue-300 transition-colors"
+                    className="h-8 w-8 rounded-full border-2 border-gray-200 transition-colors group-hover:border-blue-300"
                   />
                 ) : (
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                    <User className="w-4 h-4 text-white" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-500">
+                    <User className="h-4 w-4 text-white" />
                   </div>
                 )}
-                <span className="hidden md:inline text-gray-700 font-medium group-hover:text-blue-600">
+                {/* <span className="hidden font-medium text-gray-700 group-hover:text-blue-600 md:inline">
                   {user?.name || "User"}
-                </span>
+                </span> */}
                 <ChevronDown
-                  className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${
+                  className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${
                     item ? "rotate-180" : ""
                   }`}
                 />
               </button>
 
               {item && (
-                <div className=" -mr-10 dropdown-menu absolute top-full right-0 w-64 mt-4.5 bg-white shadow-xl border border-gray-100 overflow-hidden animate-in slide-in-from-top-2 duration-200">
+                <div className="dropdown-menu animate-in slide-in-from-top-2 absolute top-full right-0 mt-4.5 -mr-10 w-64 overflow-hidden border border-gray-100 bg-white shadow-xl duration-200">
                   {/* <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
                       <div className="flex items-center space-x-3">
                         {user && user.avatar ? (
@@ -240,9 +229,9 @@ const Navbar = () => {
                       <Link
                         to="/admin/dashboard"
                         onClick={() => setitem(false)}
-                        className="w-full inline-flex justify-center items-center px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors"
+                        className="inline-flex w-full items-center justify-center bg-indigo-600 px-4 py-3 font-medium text-white transition-colors hover:bg-indigo-700"
                       >
-                        <User className="w-4 h-4 mr-3 group-hover:text-blue-600" />
+                        <User className="mr-3 h-4 w-4 group-hover:text-blue-600" />
                         <span className="font-medium">Admin Dashboard</span>
                       </Link>
                     ) : (
@@ -251,48 +240,48 @@ const Navbar = () => {
                     <Link
                       to="/profile"
                       onClick={() => setitem(false)}
-                      className="flex items-center px-4 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200 group"
+                      className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600"
                     >
-                      <User className="w-4 h-4 mr-3 group-hover:text-blue-600" />
+                      <User className="mr-3 h-4 w-4 group-hover:text-blue-600" />
                       <span className="font-medium">My Profile</span>
                     </Link>
 
                     <Link
                       to="/myorder"
                       onClick={() => setitem(false)}
-                      className="flex items-center px-4 py-3 text-gray-700 hover:bg-green-50 hover:text-green-600 transition-all duration-200 group"
+                      className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-green-50 hover:text-green-600"
                     >
-                      <Package className="w-4 h-4 mr-3 group-hover:text-green-600" />
+                      <Package className="mr-3 h-4 w-4 group-hover:text-green-600" />
                       <span className="font-medium">My Orders</span>
                     </Link>
 
                     <Link
                       to="/wishlist"
                       onClick={() => setitem(false)}
-                      className="flex items-center px-4 py-3 text-gray-700 hover:bg-pink-50 hover:text-pink-600 transition-all duration-200 group"
+                      className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-pink-50 hover:text-pink-600"
                     >
-                      <Heart className="w-4 h-4 mr-3 group-hover:text-pink-600" />
+                      <Heart className="mr-3 h-4 w-4 group-hover:text-pink-600" />
                       <span className="font-medium">Wishlist</span>
                     </Link>
 
                     <Link
                       to="/settings"
                       onClick={() => setitem(false)}
-                      className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200 group"
+                      className="group flex items-center px-4 py-3 text-gray-700 transition-all duration-200 hover:bg-gray-50 hover:text-gray-900"
                     >
-                      <Settings className="w-4 h-4 mr-3 group-hover:text-gray-900" />
+                      <Settings className="mr-3 h-4 w-4 group-hover:text-gray-900" />
                       <span className="font-medium">Settings</span>
                     </Link>
 
-                    <div className="border-t border-gray-300  mt-2 pt-2">
+                    <div className="mt-2 border-t border-gray-300 pt-2">
                       <button
                         onClick={() => {
                           setitem(false);
                           logoutUser();
                         }}
-                        className="flex items-center w-full px-4 py-1 text-red-600 hover:bg-red-50 transition-all duration-200 group"
+                        className="group flex w-full items-center px-4 py-1 text-red-600 transition-all duration-200 hover:bg-red-50"
                       >
-                        <LogOut className="w-4 h-4 mr-3" />
+                        <LogOut className="mr-3 h-4 w-4" />
                         <span className="font-medium">Sign Out</span>
                       </button>
                     </div>
@@ -303,27 +292,27 @@ const Navbar = () => {
           ) : (
             <Link
               to="/sign-in"
-              className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
+              className="flex transform items-center space-x-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-4 py-2 text-white shadow-md transition-all duration-200 hover:scale-105 hover:from-blue-700 hover:to-purple-700 hover:shadow-lg"
             >
-              <User className="w-4 h-4" />
+              <User className="h-4 w-4" />
               <span className="font-medium">Sign In</span>
             </Link>
           )}
 
           <button onClick={toggleNavDrawer} className="md:hidden">
-            <HiBars3BottomRight className="h-6 w-6 ml-1 text-gray-700" />
+            <HiBars3BottomRight className="ml-1 h-6 w-6 text-gray-700" />
           </button>
         </div>
       </div>
-      <CartDrawer draweOpen={draweOpen} toggleCartDrawer={toggleCartDrawer} />
+      {/* <CartDrawer draweOpen={draweOpen} toggleCartDrawer={toggleCartDrawer} /> */}
 
       <div
-        className={`fixed top-0 left-0 w-3/4 sm:w-1/2 md:w-1/4 h-full bg-white transform transition-transform duration-300 flex flex-col z-50 ${
+        className={`fixed top-0 left-0 z-50 flex h-full w-3/4 transform flex-col bg-white transition-transform duration-300 sm:w-1/2 md:w-1/4 ${
           navbarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex justify-start  px-2 mt-2">
-          <div className=" absolute md:hidden flex flex-col space-y-3 mt-8 text-xl">
+        <div className="mt-2 flex justify-start px-2">
+          <div className="absolute mt-8 flex flex-col space-y-3 text-xl md:hidden">
             <Link to="/" onClick={toggleNavDrawer}>
               Home{" "}
             </Link>
@@ -377,7 +366,7 @@ const Navbar = () => {
             </Link>
           </div>
           <button onClick={toggleNavDrawer} className="r">
-            <IoMdClose className="h-6 w-6 text-gray-600 right-0" />
+            <IoMdClose className="right-0 h-6 w-6 text-gray-600" />
           </button>
         </div>
       </div>
@@ -386,4 +375,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
