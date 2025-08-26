@@ -9,10 +9,10 @@ const defaultSelectedStyles = {
   neckFront: "",
   neckBack: "",
   sleeve: "",
-  opening: "",
   padded: "",
-  fastening: "",
   piping: "",
+  pant: "",
+  salwar: "",
 };
 
 const prices = [
@@ -72,21 +72,9 @@ const styles = [
   },
   {
     styleImage: demoStyleImage,
-    styleName: "opening",
-    styleTitle: "Opening Style",
-    types: ["Front Opening", "Back Opening", "Side Opening", "No Opening"],
-  },
-  {
-    styleImage: demoStyleImage,
     styleName: "padded",
     styleTitle: "Padded Style",
     types: ["With Padding", "Without Padding"],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "fastening",
-    styleTitle: "Fastening Style",
-    types: ["Hook & Eye", "Zipper", "Buttons", "Tie-Up"],
   },
   {
     styleImage: demoStyleImage,
@@ -94,9 +82,27 @@ const styles = [
     styleTitle: "Piping Style",
     types: ["With Piping", "Without Piping"],
   },
+  {
+    styleImage: demoStyleImage,
+    styleName: "pant",
+    styleTitle: "Pant Style",
+    types: ["Straight Pant", "Palazzo Pant", "Cigarette Pant", "Dhoti Pant"],
+  },
+  {
+    styleImage: demoStyleImage,
+    styleName: "salwar",
+    styleTitle: "Salwar Style",
+    types: [
+      "Patiala Salwar",
+      "Churidar Salwar",
+      "Harem Salwar",
+      "Straight Salwar",
+      "Palazzo Salwar",
+    ],
+  },
 ];
 
-const BlouseCustomDesign = () => {
+const KurtiSetCustomDesign = () => {
   const [showPriceDetails, setShowPriceDetails] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currModal, setCurrModal] = useState();
@@ -105,19 +111,14 @@ const BlouseCustomDesign = () => {
   const selectedStylesArray = Object.values(selectedStyles).filter(
     (style) => style !== "",
   );
-  // console.log("Selected Styles Array:", selectedStylesArray.length !== 0);
 
   const navigate = useNavigate();
 
   const proceedToOrder = (e) => {
     e.preventDefault();
 
-    navigate("/selfMeasurement", { state: { targetItem: "blouse" } });
+    navigate("/selfMeasurement", { state: { targetItem: "kurtiSet" } });
   };
-
-  // useEffect(() => {
-  //   console.log("Selected Styles:", selectedStyles);
-  // }, [selectedStyles]);
 
   return (
     <div className="mx-10 mt-24 flex flex-col gap-5">
@@ -132,7 +133,7 @@ const BlouseCustomDesign = () => {
       )}
 
       <section>
-        <h2 className="text-2xl text-shadow-md">Blouse Custom Design</h2>
+        <h2 className="text-2xl text-shadow-md">Kurti Set Custom Design</h2>
         <p className="text-sm text-gray-500">
           *Click on these styles categories to customize
         </p>
@@ -234,4 +235,4 @@ const BlouseCustomDesign = () => {
   );
 };
 
-export default BlouseCustomDesign;
+export default KurtiSetCustomDesign;

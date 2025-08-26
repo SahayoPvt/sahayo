@@ -14,7 +14,7 @@ const StyleCard = ({ style, setShowModal, setCurrModal }) => {
         src={style.styleImage}
         alt="style image"
       />
-      <span className="py-1 text-shadow-md">{style.styleName}</span>
+      <span className="py-1 text-shadow-md">{style.styleTitle}</span>
     </div>
   );
 };

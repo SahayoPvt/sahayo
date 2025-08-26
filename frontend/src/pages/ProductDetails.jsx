@@ -54,7 +54,7 @@ const ProductDetails = () => {
       p.category &&
       product.category &&
       p.category === product.category &&
-      p._id !== product._id
+      p._id !== product._id,
   );
 
   const getRatingDistribution = (reviews) => {
@@ -125,7 +125,7 @@ const ProductDetails = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center">
                 {renderStarRating(
-                  Math.round(calculateAverageRating(product?.reviews || []))
+                  Math.round(calculateAverageRating(product?.reviews || [])),
                 )}
                 <span className="ml-2 text-sm font-medium text-gray-700">
                   {calculateAverageRating(product?.reviews || [])}
@@ -186,7 +186,15 @@ const ProductDetails = () => {
           </div>
 
           <button
-            onClick={() => navigate("/blouseCustomDesign")}
+            onClick={() => {
+              product?.category === "blouse"
+                ? navigate("/blouseCustomDesign")
+                : product?.category === "kurti"
+                  ? navigate("/kurtiCustomDesign")
+                  : product?.category === "kurtiSet"
+                    ? navigate("/kurtiSetCustomDesign")
+                    : navigate("/bottomCustomDesign");
+            }}
             className="w-[90%] cursor-pointer rounded-lg bg-[#ffc4c4] py-1.5 text-xl font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]"
           >
             Customize Now
@@ -223,7 +231,7 @@ const ProductDetails = () => {
                     </div>
                     <div className="mb-2 flex justify-center lg:justify-start">
                       {renderStarRating(
-                        Math.round(calculateAverageRating(product.reviews))
+                        Math.round(calculateAverageRating(product.reviews)),
                       )}
                     </div>
                     <p className="text-sm text-gray-600">
@@ -286,7 +294,7 @@ const ProductDetails = () => {
                     <div className="flex items-center space-x-1">
                       {renderInteractiveStars(
                         reviewFormData.rating,
-                        handleReviewRatingChange
+                        handleReviewRatingChange,
                       )}
                       <span className="ml-2 text-sm text-gray-600">
                         {reviewFormData.rating > 0 &&

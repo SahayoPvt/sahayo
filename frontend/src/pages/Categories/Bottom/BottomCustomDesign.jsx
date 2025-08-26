@@ -6,13 +6,8 @@ import { useNavigate } from "react-router";
 import StylePopUp from "../../../components/StylePopUp.jsx";
 
 const defaultSelectedStyles = {
-  neckFront: "",
-  neckBack: "",
-  sleeve: "",
-  opening: "",
-  padded: "",
-  fastening: "",
-  piping: "",
+  pant: "",
+  salwar: "",
 };
 
 const prices = [
@@ -30,73 +25,25 @@ const prices = [
 const styles = [
   {
     styleImage: demoStyleImage,
-    styleName: "neckFront",
-    styleTitle: "Neck Style (Front)",
+    styleName: "pant",
+    styleTitle: "Pant Style",
+    types: ["Straight Pant", "Palazzo Pant", "Cigarette Pant", "Dhoti Pant"],
+  },
+  {
+    styleImage: demoStyleImage,
+    styleName: "salwar",
+    styleTitle: "Salwar Style",
     types: [
-      "Collar Neck",
-      "Keyhole Neck",
-      "Off Shoulder Neck",
-      "Round Neck",
-      "Square Neck",
-      "V-Neck",
+      "Patiala Salwar",
+      "Churidar Salwar",
+      "Harem Salwar",
+      "Straight Salwar",
+      "Palazzo Salwar",
     ],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "neckBack",
-    styleTitle: "Neck Style (Back)",
-    types: [
-      "Deep U Back",
-      "Round Back",
-      "Square Back",
-      "V-Back",
-      "Backless",
-      "Buttoned Back",
-      "Tie-Up Back",
-      "Hook Closure Back",
-      "Sheer Net Back",
-    ],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "sleeve",
-    styleTitle: "Sleeve Style",
-    types: [
-      "Cap Sleeve",
-      "Elbow Sleeve",
-      "Full Sleeve",
-      "Half Sleeve",
-      "Puff Sleeve",
-      "Sleeveless",
-    ],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "opening",
-    styleTitle: "Opening Style",
-    types: ["Front Opening", "Back Opening", "Side Opening", "No Opening"],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "padded",
-    styleTitle: "Padded Style",
-    types: ["With Padding", "Without Padding"],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "fastening",
-    styleTitle: "Fastening Style",
-    types: ["Hook & Eye", "Zipper", "Buttons", "Tie-Up"],
-  },
-  {
-    styleImage: demoStyleImage,
-    styleName: "piping",
-    styleTitle: "Piping Style",
-    types: ["With Piping", "Without Piping"],
   },
 ];
 
-const BlouseCustomDesign = () => {
+const BottomCustomDesign = () => {
   const [showPriceDetails, setShowPriceDetails] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [currModal, setCurrModal] = useState();
@@ -105,19 +52,14 @@ const BlouseCustomDesign = () => {
   const selectedStylesArray = Object.values(selectedStyles).filter(
     (style) => style !== "",
   );
-  // console.log("Selected Styles Array:", selectedStylesArray.length !== 0);
 
   const navigate = useNavigate();
 
   const proceedToOrder = (e) => {
     e.preventDefault();
 
-    navigate("/selfMeasurement", { state: { targetItem: "blouse" } });
+    navigate("/selfMeasurement", { state: { targetItem: "bottom" } });
   };
-
-  // useEffect(() => {
-  //   console.log("Selected Styles:", selectedStyles);
-  // }, [selectedStyles]);
 
   return (
     <div className="mx-10 mt-24 flex flex-col gap-5">
@@ -132,7 +74,7 @@ const BlouseCustomDesign = () => {
       )}
 
       <section>
-        <h2 className="text-2xl text-shadow-md">Blouse Custom Design</h2>
+        <h2 className="text-2xl text-shadow-md">Bottom Custom Design</h2>
         <p className="text-sm text-gray-500">
           *Click on these styles categories to customize
         </p>
@@ -161,11 +103,11 @@ const BlouseCustomDesign = () => {
 
       {showPriceDetails &&
         selectedStylesArray.length > 0 &&
-        selectedStylesArray.length !== 7 && (
+        selectedStylesArray.length !== 2 && (
           <p className="ml-2">Please confirm all the style specifications</p>
         )}
 
-      {showPriceDetails && selectedStylesArray.length === 7 && (
+      {showPriceDetails && selectedStylesArray.length === 2 && (
         <form onSubmit={proceedToOrder} className="flex flex-col gap-3">
           <h2 className="text-2xl text-shadow-md">Estimateed Price Options</h2>
           {prices.map((price, index) => (
@@ -234,4 +176,4 @@ const BlouseCustomDesign = () => {
   );
 };
 
-export default BlouseCustomDesign;
+export default BottomCustomDesign;

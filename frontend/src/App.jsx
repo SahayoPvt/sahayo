@@ -39,6 +39,12 @@ import VerifyOtp from "./pages/VerifyOtp";
 import Blouse from "./pages/Categories/Blouse/Blouse.jsx";
 import BlouseCustomDesign from "./pages/Categories/Blouse/BlouseCustomDesign.jsx";
 import SelfMeasurement from "./pages/SelfMeasurement/SelfMeasurement.jsx";
+import Kurti from "./pages/Categories/Kurti/Kurti.jsx";
+import KurtiSet from "./pages/Categories/KurtiSet/KurtiSet.jsx";
+import Bottom from "./pages/Categories/Bottom/Bottom.jsx";
+import KurtiSetCustomDesign from "./pages/Categories/KurtiSet/KurtiSetCustomDesign.jsx";
+import KurtiCustomDesign from "./pages/Categories/Kurti/KurtiCustomDesign.jsx";
+import BottomCustomDesign from "./pages/Categories/Bottom/BottomCustomDesign.jsx";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -75,9 +81,22 @@ const App = () => {
             <Route path="/verify-otp" element={<VerifyOtp />} />
 
             <Route path="/blouse" element={<Blouse />} />
+            <Route path="/kurti" element={<Kurti />} />
+            <Route path="/kurti-Set" element={<KurtiSet />} />
+            <Route path="/bottom" element={<Bottom />} />
+
             <Route
               path="/blouseCustomDesign"
               element={<BlouseCustomDesign />}
+            />
+            <Route path="/kurtiCustomDesign" element={<KurtiCustomDesign />} />
+            <Route
+              path="/kurtiSetCustomDesign"
+              element={<KurtiSetCustomDesign />}
+            />
+            <Route
+              path="/bottomCustomDesign"
+              element={<BottomCustomDesign />}
             />
 
             <Route path="/selfMeasurement" element={<SelfMeasurement />} />

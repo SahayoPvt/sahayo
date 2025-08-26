@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../../redux/productSlice";
 import ProductCard from "../../../components/ProductCard";
 
-const Blouse = () => {
+const KurtiSet = () => {
   const { products } = useSelector((state) => state.product);
-  console.log(products);
+  // console.log(products);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,11 +15,11 @@ const Blouse = () => {
   return (
     <div className="mx-10 mt-22 flex flex-col gap-10">
       <h2 className="mx-auto text-3xl font-semibold underline text-shadow-md">
-        Designer Blouse
+        Kurti Set
       </h2>
       <section className="flex flex-wrap gap-4">
         {products
-          ?.filter((product) => product.category === "blouse")
+          ?.filter((product) => product.category === "kurtiSet")
           .map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
@@ -28,4 +28,4 @@ const Blouse = () => {
   );
 };
 
-export default Blouse;
+export default KurtiSet;
