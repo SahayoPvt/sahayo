@@ -7,7 +7,7 @@ import Logo from "../Logo";
 
 const Navbar = () => {
   return (
-    <nav className="fixed flex h-18 w-full items-center justify-around gap-20 bg-[#FFF2EB] shadow-lg">
+    <nav className="fixed z-10000 flex h-18 w-full items-center justify-around gap-20 bg-[#FFF2EB] shadow-lg">
       <Logo />
       <DeliveryLocation />
       <Navlinks />

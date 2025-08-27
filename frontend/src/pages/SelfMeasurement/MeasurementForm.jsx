@@ -59,7 +59,7 @@ const MeasurementForm = ({
       </ol>
 
       <button className="mt-5 w-fit cursor-pointer rounded-lg bg-[#ffc4c4] px-5 py-1 text-xl font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]">
-        Proceed To Pay
+        Proceed To Order
       </button>
     </form>
   );

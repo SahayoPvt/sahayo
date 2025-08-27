@@ -1,41 +1,90 @@
-import { ChevronDown, ShoppingCart, User } from "lucide-react";
+import { ChevronDown, LogOut, Package, ShoppingCart, User } from "lucide-react";
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { Menu, X } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/userSlice";
 
 const Right = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const [navOpen, setNavOpen] = useState();
+
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const checkRole = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user")).role
+    : "";
+
   return (
     <div className="flex items-center gap-4">
-      <button
-        onClick={() => setProfileOpen(!profileOpen)}
-        className="relative flex cursor-pointer gap-2 rounded bg-[#FFDCDC] px-2 py-1 shadow-md"
-      >
-        <div className="flex cursor-pointer items-center gap-1">
-          <User />
-          Profile
-          <ChevronDown
-            size={20}
-            className={`transition-transform duration-200 ${
-              profileOpen ? "rotate-180" : ""
-            }`}
-          />
-        </div>
+      {isAuthenticated ? (
+        <button
+          onClick={() => setProfileOpen(!profileOpen)}
+          className="relative flex cursor-pointer gap-2 rounded"
+        >
+          <div className="flex cursor-pointer items-center gap-1">
+            {user && user.avatar ? (
+              <img
+                src={user.avatar.url}
+                alt=""
+                className="h-8 w-8 rounded-full"
+              />
+            ) : (
+              <User />
+            )}
 
-        {profileOpen && (
-          <div className="absolute top-full right-0 mt-5 flex w-64 flex-col gap-1 overflow-hidden bg-white shadow-xl text-shadow-md *:px-3 *:py-2 *:hover:bg-[#FFDCDC]">
-            <Link>My Profile</Link>
-            <Link
-              onClick={() => setProfileOpen(!profileOpen)}
-              to={"/editCatalogue"}
-            >
-              Edit Catalogue
-            </Link>
-            <Link>Payment</Link>
+            <ChevronDown
+              size={20}
+              className={`transition-transform duration-200 ${
+                profileOpen ? "rotate-180" : ""
+              }`}
+            />
           </div>
-        )}
-      </button>
+
+          {profileOpen && (
+            <div className="absolute top-full -right-7 mt-5 flex w-64 flex-col gap-1 overflow-hidden bg-white shadow-xl text-shadow-md *:px-3 *:py-2 *:hover:bg-[#FFDCDC]">
+              {checkRole === "admin" && (
+                <Link
+                  className="flex items-center justify-center gap-2"
+                  to={"/admin/dashboard"}
+                >
+                  <User />
+                  Admin Dashboard
+                </Link>
+              )}
+              <Link
+                className="flex items-center justify-center gap-2"
+                to={"/profile"}
+              >
+                <User />
+                My Profile
+              </Link>
+              <Link
+                className="flex items-center justify-center gap-2"
+                to={"/orders"}
+              >
+                <Package /> My Orders
+              </Link>
+              <button
+                onClick={() => dispatch(logout())}
+                className="flex cursor-pointer items-center justify-center gap-2 text-red-400 text-shadow-md"
+              >
+                <LogOut /> Sign Out
+              </button>
+            </div>
+          )}
+        </button>
+      ) : (
+        <Link
+          to={"/sign-in"}
+          className="cursor-pointer rounded-lg bg-[#ffc4c4] px-4 py-1 text-xl font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]"
+        >
+          Sign In
+        </Link>
+      )}
+
       {/* <ShoppingCart className="cursor-pointer" /> */}
       <button
         className="relative cursor-pointer lg:hidden"

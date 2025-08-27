@@ -6,11 +6,11 @@ import NewArrivals from "../../NewArrival";
 
 const Home = () => {
   return (
-    <div className="pt-16 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pt-16">
       <Hero />
-      <NewArrivals />
       <Category />
       <Reviews />
+      <NewArrivals />
     </div>
   );
 };

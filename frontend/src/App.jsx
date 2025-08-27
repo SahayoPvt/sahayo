@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import Navbar from "./components/Navbar";
+// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar/Navbar.jsx";
 import Footer from "./components/Footer/Footer.jsx";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails.jsx";
