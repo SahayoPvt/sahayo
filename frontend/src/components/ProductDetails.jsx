@@ -186,10 +186,26 @@ const ProductDetails = () => {
           </div>
 
           <button
-            onClick={() => navigate("/blouseCustomDesign")}
+            onClick={() => {
+              product?.category === "blouse"
+                ? navigate("/selfMeasurement", {
+                    state: { targetItem: "blouse" },
+                  })
+                : product?.category === "kurti"
+                  ? navigate("/selfMeasurement", {
+                      state: { targetItem: "kurti" },
+                    })
+                  : product?.category === "kurtiSet"
+                    ? navigate("/selfMeasurement", {
+                        state: { targetItem: "kurtiSet" },
+                      })
+                    : navigate("/selfMeasurement", {
+                        state: { targetItem: "bottom" },
+                      });
+            }}
             className="w-[90%] cursor-pointer rounded-lg bg-[#ffc4c4] py-1.5 text-xl font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]"
           >
-            Customize Now
+            Proceed for measurement
           </button>
         </div>
       </section>

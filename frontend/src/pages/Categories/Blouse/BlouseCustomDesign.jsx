@@ -191,7 +191,7 @@ const BlouseCustomDesign = () => {
             </div>
           ))}
 
-          <h2 className="text-2xl text-shadow-md">Select Measurement Type</h2>
+          {/* <h2 className="text-2xl text-shadow-md">Select Measurement Type</h2>
           <div className="flex gap-5">
             <div className="flex gap-2">
               <input required type="radio" name="measurement" id="readyMade" />
@@ -223,10 +223,10 @@ const BlouseCustomDesign = () => {
                 Reference clothing
               </label>
             </div>
-          </div>
+          </div> */}
 
           <button className="my-2 w-fit cursor-pointer rounded-lg bg-[#ffc4c4] px-5 py-1 text-xl font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]">
-            Proceed to Order
+            Proceed for Measurement
           </button>
         </form>
       )}
