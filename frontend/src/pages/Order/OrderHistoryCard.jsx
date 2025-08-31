@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
-const OrderHistoryCard = ({ order }) => {
+const OrderHistoryCard = ({ order, setShowProductReview }) => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col gap-3 rounded-md border shadow-md">
       <section className="flex justify-between bg-gray-400/20 px-5 py-3">
@@ -53,10 +54,24 @@ const OrderHistoryCard = ({ order }) => {
           <button className="w-fit cursor-pointer rounded bg-[#ffc4c4] px-4 py-1 text-lg font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]">
             Track Order
           </button>
-          <button className="w-fit cursor-pointer rounded bg-[#ffc4c4] px-4 py-1 text-lg font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]">
+          <button
+            onClick={() =>
+              navigate("/order/alteration", {
+                state: {
+                  orderImage: order.orderImage,
+                  orderDecription: order.orderDecription,
+                  orderId: order.orderId,
+                },
+              })
+            }
+            className="w-fit cursor-pointer rounded bg-[#ffc4c4] px-4 py-1 text-lg font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]"
+          >
             Alteration Request
           </button>
-          <button className="w-fit cursor-pointer rounded bg-[#ffc4c4] px-4 py-1 text-lg font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]">
+          <button
+            onClick={() => setShowProductReview(true)}
+            className="w-fit cursor-pointer rounded bg-[#ffc4c4] px-4 py-1 text-lg font-semibold text-gray-800 shadow-md transition-colors hover:bg-[#ffb5b5]"
+          >
             Write a product review
           </button>
         </div>

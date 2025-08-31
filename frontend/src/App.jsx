@@ -49,6 +49,8 @@ import BottomCustomDesign from "./pages/Categories/Bottom/BottomCustomDesign.jsx
 import Payment from "./pages/Order/Payment.jsx";
 import OrderSuccess from "./pages/Order/OrderSuccess.jsx";
 import OrderHistory from "./pages/Order/OrderHistory.jsx";
+import OrderDetails from "./pages/Order/OrderDetails.jsx";
+import Alteration from "./pages/Order/Alteration.jsx";
 
 const App = () => {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -110,6 +112,10 @@ const App = () => {
             <Route path="/order/success" element={<OrderSuccess />} />
 
             <Route path="/order/history" element={<OrderHistory />} />
+
+            <Route path="/order/details" element={<OrderDetails />} />
+
+            <Route path="/order/alteration" element={<Alteration />} />
 
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

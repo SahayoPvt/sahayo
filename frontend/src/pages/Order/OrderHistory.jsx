@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import OrderHistoryCard from "./OrderHistoryCard";
 import blouseImg from "../../assets/blouse.jpg";
 import kurtiImg from "../../assets/Kurti.jpg";
+import ProductReview from "./ProductReview";
 
 const OrderHistory = () => {
+  const [showProductReview, setShowProductReview] = useState(false);
   const date = new Date();
   const shipDate = new Date();
   shipDate.setDate(shipDate.getDate() + 10);
@@ -33,11 +35,17 @@ const OrderHistory = () => {
 
   return (
     <div className="mx-8 mt-24 flex flex-col gap-5">
+      {showProductReview && (
+        <ProductReview setShowProductReview={setShowProductReview} />
+      )}
       <h2 className="text-2xl uppercase text-shadow-md">Order History</h2>
 
       <section className="flex flex-col gap-5">
         {orders.map((order, index) => (
-          <OrderHistoryCard order={order} />
+          <OrderHistoryCard
+            setShowProductReview={setShowProductReview}
+            order={order}
+          />
         ))}
       </section>
     </div>
